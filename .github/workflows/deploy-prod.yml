@@ -14,44 +14,37 @@ on:
 
 # Omgevingsvariabelen die globaal binnen deze workflow worden gebruikt.
 env:
-  PROJECT_ID: area52-test # Vul hier jullie definitieve GCP Project ID in als deze afwijkt van de testomgeving
+  PROJECT_ID: area52-test 
   REGION: europe-west1
   REPO_NAME: area52-prod-repo
   SERVICE_NAME: area52-backend-prod
 
 jobs:
   deploy:
-    # Uitvoering op het meest recente stabiele Ubuntu-runnerimage van GitHub Actions.
     runs-on: ubuntu-latest
 
     steps:
-      # Stap 1: Repository broncode ophalen in de runner-omgeving.
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Stap 2: Authenticatie met het Google Cloud Platform via een beveiligde Service Account Key.
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      # Stap 3: Initialisatie en configuratie van de Google Cloud SDK tools op de runner.
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      # Stap 4: Docker-pakketbeheerder configureren voor veilige authenticatie met de Artifact Registry.
       - name: Configure Docker for Artifact Registry
         run: |
           gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
 
-      # Stap 5: De Docker-container lokaal bouwen, taggen en pushen naar de productie Artifact Registry repository.
       - name: Build and Push Container Image
         run: |
           IMAGE_URL="europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:latest"
           docker build -t $IMAGE_URL .
           docker push $IMAGE_URL
 
-      # Stap 6: De gepushte container-image uitrollen als een schone serverinstantie op Google Cloud Run.
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2
         with:
