@@ -14,7 +14,7 @@ on:
 
 # Omgevingsvariabelen die globaal binnen deze workflow worden gebruikt.
 env:
-  PROJECT_ID: area52-test 
+  PROJECT_ID: area52-494218
   REGION: europe-west1
   REPO_NAME: area52-prod-repo
   SERVICE_NAME: area52-backend-prod
