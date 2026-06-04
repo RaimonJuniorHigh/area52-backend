@@ -1,0 +1,50 @@
+# CI/CD configuratiebestand voor geautomatiseerde uitrol (deployment) naar Google Cloud Run.
+name: Deploy to Test Cloud Run
+
+# Definieert de specifieke trigger voor deze pipeline.
+on:
+  push:
+    branches:
+      # Uitvoering vindt uitsluitend plaats bij een update op de test-branch.
+      - develop 
+
+jobs:
+  deploy:
+    # Bepaalt het besturingssysteem van de virtuele runner waarop de stappen worden uitgevoerd.
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Stap 1: Haalt de meest recente broncode op uit de repository naar de virtuele omgeving.
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Stap 2: Authenticatie met Google Cloud via een versleutelde service account sleutel (GitHub Secret).
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      # Stap 3: Bereidt de omgeving voor door de benodigde Google Cloud SDK command-line tools te installeren.
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # Stap 4: Zorgt ervoor dat Docker toestemming heeft om te communiceren met de afgeschermde container-opslag in Europa.
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+
+      # Stap 5: Bouwt de Docker-container lokaal op de runner en publiceert (pusht) deze naar de Artifact Registry.
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE_PATH="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/area52-test-repo/backend-test:latest"
+          docker build -t $IMAGE_PATH .
+          docker push $IMAGE_PATH
+
+      # Stap 6: Werkt de webdienst bij op Cloud Run met de zojuist gepubliceerde Docker-image.
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: area52-backend-test
+          region: europe-west1
+          image: europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/area52-test-repo/backend-test:latest
+          # Deze parameter zorgt ervoor dat de API-endpoints bereikbaar zijn vanaf het publieke internet.
+          flags: '--allow-unauthenticated'
