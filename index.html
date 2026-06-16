@@ -1,111 +1,42 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vakantiepark Area52 | Beheersysteem</title>
-    <style>
-        :root {
-            --primary-color: #2F4F4F; /* Donkergroen */
-            --accent-color: #8FBC8F; /* Lichtgroen */
-            --bg-color: #F4F7F6;
-            --text-color: #333333;
-        }
+<main>
+        <div id="main-content">
+            
+            <div id="auth-container" style="display: flex; gap: 40px; justify-content: center; align-items: flex-start; font-family: 'Segoe UI', sans-serif;">
+                
+                <div style="padding: 20px; width: 300px;">
+                    <h2 style="color: var(--primary-color); margin-top: 0;">Inloggen</h2>
+                    <form id="login-form">
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: 500;">E-mailadres:</label><br>
+                            <input type="email" id="login-email" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: 500;">Wachtwoord:</label><br>
+                            <input type="password" id="login-password" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <button type="submit" style="width: 100%; padding: 10px; background-color: var(--primary-color); color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 16px;">Log in</button>
+                    </form>
+                    <p id="login-message" style="font-weight: bold; font-size: 14px; margin-top: 15px;"></p>
+                </div>
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+                <div style="border-left: 2px solid #eee; height: 250px;"></div>
 
-        navbar {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+                <div style="padding: 20px; width: 300px;">
+                    <h2 style="color: var(--primary-color); margin-top: 0;">Account Aanmaken</h2>
+                    <form id="register-form">
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: 500;">E-mailadres:</label><br>
+                            <input type="email" id="register-email" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: 500;">Wachtwoord:</label><br>
+                            <input type="password" id="register-password" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <button type="submit" style="width: 100%; padding: 10px; background-color: var(--accent-color); color: var(--primary-color); border: none; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 16px;">Registreer</button>
+                    </form>
+                    <p id="register-message" style="font-weight: bold; font-size: 14px; margin-top: 15px;"></p>
+                </div>
 
-        navbar h1 {
-            margin: 0;
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-        }
-
-        main {
-            flex: 1;
-            padding: 3rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* dit is voor tom*/
-        #main-content {
-            background: white;
-            border-radius: 8px;
-            padding: 2rem;
-            min-height: 60vh; /* Zorgt dat het vak altijd een mooie hoogte heeft */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 2px dashed #ccc; /* Stippellijn */
-        }
-
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
-    </style>
-</head>
-<body>
-
-    <navbar>
-        <h1>🌲 Area52 Systeem</h1>
-        <div class="nav-links">
-            <a href="#" class="active" id="nav-home">Dashboard</a>
-            <a href="#" id="nav-fiets">Test</a>
-            <a href="#" id="nav-ent">Entertainment</a>
-            <a href="#" id="nav-data">Data & Logging</a>
+            </div>
         </div>
-    </navbar>
-
-    <main>
-        <div id="main-content"></div>
     </main>
-
-    <footer>
-        &copy; 2026 Vakantiepark Area52 | Achterhoek
-    </footer>
-
-    <script src="frontend.js"></script>
-</body>
-</html>
