@@ -35,12 +35,15 @@ app.get('/api/tom', (req: Request, res: Response) => {
   res.json({ status: "Succes", message: "API-koppeling voor Tom's module is gereed." });
 });
 
+
+
 // ============================================================================
 // AUTHENTICATIE & AUTORISATIE ROUTING 
 // ============================================================================
 // Koppel de geëxporteerde router aan het basis-pad '/api/auth'. 
 // Hierdoor luistert de server nu o.a. naar '/api/auth/login' en '/api/auth/register'.
 app.use('/api/auth', authRoutes);
+
 
 // Let op de 'authenticateToken' tussen de URL en de functie: dit is de bewaker!
 app.get('/api/admin/dashboard', authenticateToken, (req: AuthRequest, res: Response) => {
