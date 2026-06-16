@@ -1,27 +1,18 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h2>Welkom in het Dashboard</h2>
-    <div id="content">Bezig met laden...</div>
-
+    <h2>Dashboard</h2>
+    <div id="content">Laden...</div>
     <script>
-        // NOTE: Deze code checkt of de ingelogde gebruiker echt toegang heeft
-        async function loadDashboard() {
+        async function load() {
             const token = localStorage.getItem('token');
             const res = await fetch('https://area52-backend-562976809707.europe-west1.run.app/api/admin/dashboard', {
-                method: 'GET',
                 headers: { 'Authorization': 'Bearer ' + token }
             });
-            
             const data = await res.json();
-            if(res.ok) {
-                document.getElementById('content').innerText = data.message;
-            } else {
-                alert("Niet ingelogd! Je wordt teruggestuurd.");
-                window.location.href = '/login.html';
-            }
+            document.getElementById('content').innerText = data.message;
         }
-        loadDashboard();
+        load();
     </script>
 </body>
 </html>

@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h2>Account Aanmaken</h2>
+    <h2>Registreren</h2>
     <input id="email" type="email" placeholder="Email">
     <input id="password" type="password" placeholder="Wachtwoord">
-    <button onclick="register()">Registreren</button>
-
+    <button onclick="register()">Account Aanmaken</button>
     <script>
         async function register() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
-            // NOTE: Pad is hier ook /api/auth/register om te matchen met je backend
             const res = await fetch('https://area52-backend-562976809707.europe-west1.run.app/api/auth/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
-            
-            const data = await res.json();
-            if(res.ok) {
-                alert("Registratie geslaagd! Je wordt doorgestuurd.");
-                window.location.href = '/login.html';
-            } else {
-                alert("Fout: " + (data.message || "Er ging iets mis"));
-            }
+            if(res.ok) { alert("Gelukt!"); window.location.href = '/login'; }
+            else { alert("Fout bij registratie"); }
         }
     </script>
 </body>

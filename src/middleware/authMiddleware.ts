@@ -16,6 +16,7 @@ import jwt from 'jsonwebtoken';
  */
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_key_only_for_dev';
+
 // Breid de standaard Express Request uit zodat we de ingelogde user data kunnen doorgeven
 export interface AuthRequest extends Request {
     user?: any;

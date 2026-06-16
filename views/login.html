@@ -2,35 +2,24 @@
 <html>
 <body>
     <h2>Inloggen</h2>
-    
-    <!-- NOTE: Zorg dat de id's 'email' en 'password' overeenkomen met wat je in je backend verwacht -->
     <input id="email" type="email" placeholder="Email">
     <input id="password" type="password" placeholder="Wachtwoord">
     <button onclick="login()">Inloggen</button>
-
     <script>
         async function login() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
-            // NOTE: URL is nu aangepast naar '/api/auth/login' om te matchen met je app.ts route
             const res = await fetch('https://area52-backend-562976809707.europe-west1.run.app/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
-            
             const data = await res.json();
-            
             if(res.ok) {
-                // NOTE: Token wordt opgeslagen in de browser voor je sessie (nodig voor dashboard)
                 localStorage.setItem('token', data.token);
-                alert("Gelukt! Je bent ingelogd.");
-                window.location.href = '/dashboard.html';
-            } else {
-                // NOTE: Hier wordt de foutmelding uit je backend getoond als inloggen mislukt
-                alert("Fout: " + data.message);
-            }
+                alert("Gelukt!");
+                window.location.href = '/dashboard';
+            } else { alert("Fout: " + data.message); }
         }
     </script>
 </body>
