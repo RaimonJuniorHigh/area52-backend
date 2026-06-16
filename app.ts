@@ -1,68 +1,44 @@
-// Importeren van de benodigde webserver-frameworks en hulpprogramma's voor bestandspaden.
 import express = require('express');
 import { authenticateToken, AuthRequest } from './src/middleware/authMiddleware';
 import path = require('path');
+import cors = require('cors');
 import type { Request, Response } from 'express';
-
-// Importeren van de beveiligde authenticatie routes 
 import authRoutes from './src/routes/authRoutes';
-// Initialisatie van de Express applicatie.
+
 const app = express();
 
-// Dynamische poortconfiguratie: geeft prioriteit aan omgevingsvariabelen (vereist voor Google Cloud Run),
-// met een fallback naar poort 8080 voor de lokale testomgeving op de MacBook Air M5.
+// 1. CORS staat nu bovenaan, veilig voor je live-omgeving
+app.use(cors());
+
 const port = process.env.PORT || 8080; 
 
-// Middleware configuratie: definieert de huidige map als de bron voor statische frontend-bestanden.
 app.use(express.static(__dirname));
-
-// Middleware voor JSON-verwerking: stelt de server in staat om inkomende JSON-data (bijv. vanuit formulieren) te lezen.
 app.use(express.json());
 
 // ============================================================================
-// MODULAIRE API ROUTING (Team Integratiepunten)
+// ROUTES VOOR PAGINA'S (NOTES: Dit zorgt dat je /login en /register kunt bezoeken)
 // ============================================================================
-// Deze endpoints fungeren als geïsoleerde test-routes voor de teamleden.
-// In een latere fase kunnen hier aparte 'router' bestanden aan gekoppeld worden.
-
-// Gereserveerd endpoint voor de functionaliteit van Abdou (Fietsenverhuur)
-app.get('/api/abdou', (req: Request, res: Response) => {
-  res.json({ status: "Succes", message: "API-koppeling voor Abdou's module is gereed." });
-});
-
-// Gereserveerd endpoint voor de functionaliteit van Tom (Openingstijden & Overzicht)
-app.get('/api/tom', (req: Request, res: Response) => {
-  res.json({ status: "Succes", message: "API-koppeling voor Tom's module is gereed." });
-});
-
-
+app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'login.html')));
+app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'regist.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 // ============================================================================
-// AUTHENTICATIE & AUTORISATIE ROUTING 
+// API ROUTES
 // ============================================================================
-// Koppel de geëxporteerde router aan het basis-pad '/api/auth'. 
-// Hierdoor luistert de server nu o.a. naar '/api/auth/login' en '/api/auth/register'.
 app.use('/api/auth', authRoutes);
 
-
-// Let op de 'authenticateToken' tussen de URL en de functie: dit is de bewaker!
 app.get('/api/admin/dashboard', authenticateToken, (req: AuthRequest, res: Response) => {
   res.json({ 
     status: "Toegang verleend",
     message: "Welkom in het afgeschermde Admin Dashboard!", 
-    ingelogdeGebruiker: req.user // Dit laat zien welke data er in jouw token zat verstopt
+    ingelogdeGebruiker: req.user 
   });
 });
 
+// Abdou & Tom endpoints
+app.get('/api/abdou', (req, res) => res.json({ message: "API-koppeling Abdou gereed." }));
+app.get('/api/tom', (req, res) => res.json({ message: "API-koppeling Tom gereed." }));
 
-// ============================================================================
-
-// Definiëren van het 'root' endpoint: retourneert het lege Area52 UI canvas aan de browser.
-app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Initialiseren van de webserver zodat deze actief luistert naar inkomende HTTP-verzoeken.
 app.listen(port, () => {
-  console.log(`De Area52 server draait lokaal op http://localhost:${port}`);
+  console.log(`De Area52 server draait live op poort ${port}`);
 });
