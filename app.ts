@@ -3,6 +3,8 @@ import express = require('express');
 import path = require('path');
 import type { Request, Response } from 'express';
 
+// Importeren van de beveiligde authenticatie routes 
+import authRoutes from './src/routes/authRoutes';
 // Initialisatie van de Express applicatie.
 const app = express();
 
@@ -22,15 +24,23 @@ app.use(express.json());
 // Deze endpoints fungeren als geïsoleerde test-routes voor de teamleden.
 // In een latere fase kunnen hier aparte 'router' bestanden aan gekoppeld worden.
 
-// Gereserveerd endpoint voor de functionaliteit van Abdou
+// Gereserveerd endpoint voor de functionaliteit van Abdou (Fietsenverhuur)
 app.get('/api/abdou', (req: Request, res: Response) => {
   res.json({ status: "Succes", message: "API-koppeling voor Abdou's module is gereed." });
 });
 
-// Gereserveerd endpoint voor de functionaliteit van Tom
+// Gereserveerd endpoint voor de functionaliteit van Tom (Openingstijden & Overzicht)
 app.get('/api/tom', (req: Request, res: Response) => {
   res.json({ status: "Succes", message: "API-koppeling voor Tom's module is gereed." });
 });
+
+// ============================================================================
+// AUTHENTICATIE & AUTORISATIE ROUTING 
+// ============================================================================
+// Koppel de geëxporteerde router aan het basis-pad '/api/auth'. 
+// Hierdoor luistert de server nu o.a. naar '/api/auth/login' en '/api/auth/register'.
+app.use('/api/auth', authRoutes);
+
 // ============================================================================
 
 // Definiëren van het 'root' endpoint: retourneert het lege Area52 UI canvas aan de browser.
