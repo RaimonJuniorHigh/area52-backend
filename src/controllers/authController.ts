@@ -4,10 +4,10 @@ import jwt from 'jsonwebtoken';
 
 /**
  * ==========================================
- * ARCHITECTUUR NOTITIES - AREA52 AUTHENTICATIE
+ * NOTITIES - AREA52 AUTHENTICATIE
  * Doel: Uitleg implementatiekeuze JWT & Bcrypt voor het team en projectdocumentatie.
  * ==========================================
- * * WAAROM WIJ KIEZEN VOOR JWT (JSON Web Tokens):
+ * * WAAROM KIES IK VOOR JWT (JSON Web Tokens):
  * 1. Stateless Design: Onze Node.js backend hoeft geen actieve sessies in het geheugen te houden. 
  * Dit bespaart serverkracht en maakt onze applicatie makkelijker schaalbaar op Google Cloud.
  * 2. Ontkoppelde Architectuur: Omdat onze React-frontend en Node.js-backend los van elkaar draaien, 
@@ -20,7 +20,7 @@ import jwt from 'jsonwebtoken';
 // TODO: Deze sleutel verplaatsen naar een beveiligd .env bestand voordat we naar productie gaan.
 const JWT_SECRET = 'super_geheime_area52_sleutel_123';
 
-// Tijdelijke in-memory datastructuur om te testen (Wordt in een latere sprint vervangen door onze PostgreSQL database)
+// Tijdelijke in-memory datastructuur om te testen (Wordt in een later vervangen door onze PostgreSQL database)
 const usersDB: any[] = []; 
 
 // ==========================================
