@@ -8,19 +8,28 @@ import authRoutes from './src/routes/authRoutes';
 const app = express();
 const port = process.env.PORT || 8080;
 
-app.use(cors()); // CORS staat bovenaan
+// 1. CORS voor live communicatie
+app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname)); // Serveert html-bestanden uit de hoofdmap
 
-// Routes naar je HTML pagina's
-app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'login.html')));
-app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'regist.html')));
-app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'dashboard.html')));
+// 2. STATIC FILES: Hier zoekt hij in de map 'views' naar je HTML bestanden.
+// Zorg dat je bestanden in GitHub dus in een map genaamd 'views' staan!
+app.use(express.static(path.join(__dirname, 'views')));
 
-// API Routes
+// 3. PAGE ROUTES: Directe koppeling naar je HTML pagina's
+app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'views', 'login.html')));
+app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'views', 'regist.html')));
+app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'views', 'dashboard.html')));
+
+// 4. API ROUTES
 app.use('/api/auth', authRoutes);
+
 app.get('/api/admin/dashboard', authenticateToken, (req: AuthRequest, res: Response) => {
-  res.json({ status: "Toegang verleend", message: "Welkom!" });
+  res.json({ status: "Toegang verleend", message: "Welkom in het afgeschermde Admin Dashboard!" });
 });
 
-app.listen(port, () => console.log(`Server draait op poort ${port}`));
+// Test routes
+app.get('/api/abdou', (req, res) => res.json({ message: "API-koppeling Abdou gereed." }));
+app.get('/api/tom', (req, res) => res.json({ message: "API-koppeling Tom gereed." }));
+
+app.listen(port, () => console.log(`Area52 server draait op poort ${port}`));
