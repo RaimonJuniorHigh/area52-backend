@@ -1,5 +1,6 @@
 // Importeren van de benodigde webserver-frameworks en hulpprogramma's voor bestandspaden.
 import express = require('express');
+import { authenticateToken, AuthRequest } from './src/middleware/authMiddleware';
 import path = require('path');
 import type { Request, Response } from 'express';
 
@@ -40,6 +41,16 @@ app.get('/api/tom', (req: Request, res: Response) => {
 // Koppel de geëxporteerde router aan het basis-pad '/api/auth'. 
 // Hierdoor luistert de server nu o.a. naar '/api/auth/login' en '/api/auth/register'.
 app.use('/api/auth', authRoutes);
+
+// Let op de 'authenticateToken' tussen de URL en de functie: dit is de bewaker!
+app.get('/api/admin/dashboard', authenticateToken, (req: AuthRequest, res: Response) => {
+  res.json({ 
+    status: "Toegang verleend",
+    message: "Welkom in het afgeschermde Admin Dashboard!", 
+    ingelogdeGebruiker: req.user // Dit laat zien welke data er in jouw token zat verstopt
+  });
+});
+
 
 // ============================================================================
 

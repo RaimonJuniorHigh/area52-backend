@@ -21,6 +21,8 @@ const router = Router();
 // AUTHENTICATIE ENDPOINTS (Gekoppeld aan de React Frontend)
 // ==========================================
 
+
+
 // Endpoint: POST /api/auth/register
 // Functie: Ontvangt de payload (email, wachtwoord, rol) en routeert deze naar de register-controller.
 router.post('/register', register);
@@ -30,5 +32,7 @@ router.post('/register', register);
 // @Abdou: Jouw frontend moet de token die uit deze route komt veilig opslaan (bijv. in localStorage) 
 // en vanaf dan in de 'Authorization' header meesturen bij alle beveiligde verzoeken naar de backend!
 router.post('/login', login);
+
+
 
 export default router;
