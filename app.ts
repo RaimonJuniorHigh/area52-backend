@@ -12,7 +12,11 @@ app.use(express.json());
 // Simpele test-route
 app.get('/', (req, res) => res.send('Backend test succesvol!'));
 
-const PORT = process.env.PORT || 8080; 
-app.listen(PORT, () => {
-  console.log(`Server draait op poort ${PORT}`);
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080; 
+
+// DE CRUCIALE FIX VOOR CLOUD RUN: '0.0.0.0' is hier toegevoegd
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server draait succesvol op poort ${PORT} via 0.0.0.0`);
+}).on('error', (err) => {
+  console.error("FATALE SERVER FOUT TIJDENS OPSTARTEN:", err);
 });
