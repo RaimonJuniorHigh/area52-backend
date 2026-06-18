@@ -43,7 +43,7 @@
             const messageBox = document.getElementById('register-message');
 
             try {
-                const res = await fetch('/api/auth/register', {
+                const res = await fetch('/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password, role: 'admin' })
