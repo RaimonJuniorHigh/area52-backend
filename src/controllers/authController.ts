@@ -18,7 +18,7 @@ import jwt from 'jsonwebtoken';
  */
 
 // TODO: Deze sleutel verplaatsen naar een beveiligd .env bestand voordat we naar productie gaan.
-const JWT_SECRET = 'super_geheime_area52_sleutel_123';
+const JWT_SECRET = process.env.JWT_SECRET || 'super_geheime_area52_sleutel_123';
 
 // Tijdelijke in-memory datastructuur om te testen (Wordt in een later vervangen door onze PostgreSQL database)
 const usersDB: any[] = []; 
