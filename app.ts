@@ -10,13 +10,13 @@ app.use(express.json());
 // app.use('/api/auth', authRoutes); // <-- UITGEZET
 
 // Simpele test-route
-app.get('/', (req, res) => res.send('Backend test succesvol!'));
+app.get('/', (req, res) => res.send('Area52 Backend draait succesvol!'));
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080; 
 
-// DE CRUCIALE FIX VOOR CLOUD RUN: '0.0.0.0' is hier toegevoegd
+// HIER STAAT DE FIX: '0.0.0.0'
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server draait succesvol op poort ${PORT} via 0.0.0.0`);
+  console.log(`Server draait op poort ${PORT} via 0.0.0.0`);
 }).on('error', (err) => {
   console.error("FATALE SERVER FOUT TIJDENS OPSTARTEN:", err);
 });
