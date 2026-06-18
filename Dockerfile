@@ -1,21 +1,21 @@
-# Gebruik een officiele Node.js image
 FROM node:20-slim
 
-# Zet de werkmap
 WORKDIR /app
 
-# Kopieer package files en installeer dependencies
+# Kopieer package files
 COPY package*.json ./
+# Installeer ALLE dependencies (nodig voor de build)
 RUN npm install
 
-# Kopieer de rest van je code
+# Kopieer broncode
 COPY . .
 
-# Compileer TypeScript naar JavaScript
+# Compileer naar ./dist
 RUN npx tsc
 
-# Expose de poort (Cloud Run verwacht 8080)
+# Verwijder de zware dev-dependencies (optioneel, maar aanbevolen)
+RUN npm prune --production
+
 EXPOSE 8080
 
-# Start de GECOMPILEERDE versie (dat is de standaard voor productie)
 CMD ["node", "dist/app.js"]

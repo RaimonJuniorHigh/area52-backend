@@ -1,8 +1,14 @@
-import { Router } from 'express';
-import { register } from './src/controllers/RegisterController';
-import { login } from './src/controllers/LoginController';    
+import dotenv from 'dotenv';
+dotenv.config(); // MOET als eerste
 
-const router = Router();
-router.post('/register', register);
-router.post('/login', login);
-export default router;
+import express from 'express';
+import authRoutes from './src/routes/authRoutes';
+
+const app = express();
+app.use(express.json());
+app.use('/api/auth', authRoutes);
+
+const PORT = process.env.PORT || 8080; 
+app.listen(PORT, () => {
+  console.log(`Server draait op poort ${PORT}`);
+});
