@@ -1,18 +1,102 @@
 <!DOCTYPE html>
-<html>
-<body>
-    <h2>Dashboard</h2>
-    <div id="content">Laden...</div>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area52 Admin | Dashboard</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-layout" data-page="dashboard">
+
+    <!-- AdminLayout.init() injecteert sidebar + topbar rond deze content -->
+    <div class="admin-shell" id="admin-shell">
+        <main class="admin-content">
+
+            <div class="admin-page-header">
+                <h1>Dashboard Overview</h1>
+                <button class="admin-btn" id="ai-stats-btn">AI quick Stats</button>
+            </div>
+
+            <div class="admin-stats">
+                <div class="admin-stat-card">
+                    <div class="admin-stat-card__label">Total Guests</div>
+                    <div class="admin-stat-card__value">62</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-card__label">Active Bookings</div>
+                    <div class="admin-stat-card__value">4</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-card__label">Bikes Available</div>
+                    <div class="admin-stat-card__value">46</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-card__label">Revenue</div>
+                    <div class="admin-stat-card__value">€300.00</div>
+                </div>
+            </div>
+
+            <section class="admin-panel">
+                <div class="admin-panel__header">
+                    <h2 class="admin-panel__title">Recent Activity</h2>
+                    <div class="admin-panel__actions">
+                        <button class="admin-btn">Add New Guest</button>
+                        <button class="admin-btn">Add New Rental</button>
+                        <button class="admin-btn">Add New Booking</button>
+                    </div>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Guest</th>
+                                <th>Item/Activity</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rental</td>
+                                <td>Younes</td>
+                                <td>Bike #24</td>
+                                <td>2024-05-15</td>
+                                <td><span class="admin-badge admin-badge--active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>Booking</td>
+                                <td>Teun</td>
+                                <td>Archery</td>
+                                <td>2024-05-15</td>
+                                <td><span class="admin-badge admin-badge--completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Rental</td>
+                                <td>Joricn</td>
+                                <td>Bike #13</td>
+                                <td>2024-05-15</td>
+                                <td><span class="admin-badge admin-badge--active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>Rental</td>
+                                <td>Joricn</td>
+                                <td>Bike #16</td>
+                                <td>2024-05-15</td>
+                                <td><span class="admin-badge admin-badge--completed">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="/js/admin-layout.js"></script>
     <script>
-        async function load() {
-            const token = localStorage.getItem('token');
-            const res = await fetch('https://area52-backend-562976809707.europe-west1.run.app/api/admin/dashboard', {
-                headers: { 'Authorization': 'Bearer ' + token }
-            });
-            const data = await res.json();
-            document.getElementById('content').innerText = data.message;
-        }
-        load();
+        document.addEventListener('DOMContentLoaded', () => AdminLayout.init());
     </script>
 </body>
 </html>
