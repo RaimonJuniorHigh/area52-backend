@@ -8,6 +8,7 @@ if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET is niet gedefinieerd in de server-omgeving.");
 }
 
+
 export const login = async (req: Request, res: Response): Promise<void> => {
     try {
         const { email, password } = req.body;
@@ -28,7 +29,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         }
 
         // 3. Verificatie: Vergelijk het wachtwoord
-        const validPassword = await bcrypt.compare(password, user.password);
+        const validPassword = await bcrypt.compare(password, user.password_hash);
         if (!validPassword) {
             res.status(401).json({ message: "Ongeldige inloggegevens." });
             return;

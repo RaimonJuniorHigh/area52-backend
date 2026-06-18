@@ -27,9 +27,8 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // 4. Database logic: Nieuwe gebruiker invoegen
-        const insertQuery = 'INSERT INTO users (email, password, role) VALUES ($1, $2, $3)';
+        const insertQuery = 'INSERT INTO users (email, password_hash, role) VALUES ($1, $2, $3)';        
         const userRole = role || 'guest'; // Standaardwaarde
-        
         await pool.query(insertQuery, [email, hashedPassword, userRole]);
 
         // 5. Succesrespons
