@@ -1,12 +1,16 @@
 import dotenv from 'dotenv';
-dotenv.config(); // MOET als eerste
-
+dotenv.config();
 import express from 'express';
-import authRoutes from './src/routes/authRoutes';
+
+// import authRoutes from './routes/authRoutes'; // <-- UITGEZET
 
 const app = express();
 app.use(express.json());
-app.use('/api/auth', authRoutes);
+
+// app.use('/api/auth', authRoutes); // <-- UITGEZET
+
+// Simpele test-route
+app.get('/', (req, res) => res.send('Backend test succesvol!'));
 
 const PORT = process.env.PORT || 8080; 
 app.listen(PORT, () => {
