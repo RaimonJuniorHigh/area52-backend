@@ -1,22 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area52 Admin | Registreren</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
 <body>
-    <h2>Registreren</h2>
-    <input id="email" type="email" placeholder="Email">
-    <input id="password" type="password" placeholder="Wachtwoord">
-    <button onclick="register()">Account Aanmaken</button>
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <div class="auth-brand__logo">🌲</div>
+                <span class="auth-brand__title">Area52 Admin</span>
+            </div>
+
+            <h2>Account aanmaken</h2>
+            <form id="register-form">
+                <div class="auth-field">
+                    <label for="email">E-mailadres</label>
+                    <input id="email" type="email" required placeholder="naam@voorbeeld.nl">
+                </div>
+                <div class="auth-field">
+                    <label for="password">Wachtwoord</label>
+                    <input id="password" type="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="auth-btn">Registreer</button>
+            </form>
+
+            <p id="register-message" class="auth-message"></p>
+
+            <p class="auth-footer">
+                Al een account? <a href="/login">Log hier in</a>
+            </p>
+        </div>
+    </div>
+
     <script>
-        async function register() {
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const res = await fetch('https://area52-backend-562976809707.europe-west1.run.app/api/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
-            if(res.ok) { alert("Gelukt!"); window.location.href = '/login'; }
-            else { alert("Fout bij registratie"); }
-        }
+            const messageBox = document.getElementById('register-message');
+
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, role: 'admin' })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    messageBox.className = 'auth-message auth-message--success';
+                    messageBox.innerText = 'Succesvol! Je wordt doorgestuurd...';
+                    setTimeout(() => { window.location.href = '/login'; }, 1000);
+                } else {
+                    messageBox.className = 'auth-message auth-message--error';
+                    messageBox.innerText = data.message || 'Registratie mislukt.';
+                }
+            } catch {
+                messageBox.className = 'auth-message auth-message--error';
+                messageBox.innerText = 'Fout bij verbinden met de server.';
+            }
+        });
     </script>
 </body>
 </html>
