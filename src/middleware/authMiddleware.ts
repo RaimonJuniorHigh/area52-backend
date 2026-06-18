@@ -15,7 +15,7 @@ import jwt from 'jsonwebtoken';
  * de token niet verlopen? Dan roepen we next() aan en mag de gebruiker door.
  */
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback_key_only_for_dev';
+const JWT_SECRET = process.env.JWT_SECRET || 'super_geheime_area52_sleutel_123';
 
 // Breid de standaard Express Request uit zodat we de ingelogde user data kunnen doorgeven
 export interface AuthRequest extends Request {
