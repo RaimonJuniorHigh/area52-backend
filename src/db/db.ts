@@ -1,16 +1,31 @@
-import { Pool } from 'pg';
-import 'dotenv/config'; 
+import { Pool, PoolConfig } from 'pg';
+import 'dotenv/config';
 
-const pool = new Pool({
+// ==========================================
+// DATABASE VERBINDING - AREA52
+// Lokaal: DB_HOST + DB_PASSWORD in .env
+// Cloud Run: INSTANCE_CONNECTION_NAME + DB_PASSWORD (Cloud SQL connector)
+// ==========================================
+
+const baseConfig: PoolConfig = {
   user: 'postgres',
   database: 'area52_db',
   password: process.env.DB_PASSWORD,
-  // Gebruik de socket voor Cloud Run, anders de host voor lokaal
-  host: process.env.DB_HOST || '34.178.141.108', 
-  port: 5432,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+  connectionTimeoutMillis: 5000,
+};
+
+const pool = new Pool(
+  process.env.INSTANCE_CONNECTION_NAME
+    ? {
+        ...baseConfig,
+        host: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
+      }
+    : {
+        ...baseConfig,
+        host: process.env.DB_HOST || '34.178.141.108',
+        port: 5432,
+        ssl: { rejectUnauthorized: false },
+      }
+);
 
 export default pool;
