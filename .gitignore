@@ -9,5 +9,9 @@ yarn-error.log
 # Omgevingsvariabelen (GEHEIM)
 .env
 
+# Build output (gegenereerd door tsc — hoort niet in Git)
+dist
+build
+
 # OS specifieke bestanden
 .DS_Store

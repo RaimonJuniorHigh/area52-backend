@@ -43,10 +43,10 @@
             const messageBox = document.getElementById('register-message');
 
             try {
-                const res = await fetch('https://area52-backend-test-640467325189.europe-west1.run.app/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, role: 'admin' })
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, role: 'admin' })
                 });
                 const data = await res.json();
 
