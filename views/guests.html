@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area52 Admin | Gasten</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-layout" data-page="guests">
+
+    <div class="admin-shell" id="admin-shell">
+        <main class="admin-content">
+
+            <div class="admin-page-header">
+                <h1>Gasten</h1>
+            </div>
+
+            <div class="admin-stats admin-stats--compact">
+                <div class="admin-stat-card">
+                    <div class="admin-stat-card__label">Totaal gasten</div>
+                    <div class="admin-stat-card__value" id="guest-count">—</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-card__label">Met actieve verhuur</div>
+                    <div class="admin-stat-card__value" id="guest-active-count">—</div>
+                </div>
+            </div>
+
+            <p id="guest-message" class="auth-message"></p>
+
+            <section class="admin-panel">
+                <h2 class="admin-panel__title">Alle gastaccounts</h2>
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="guests-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>E-mail</th>
+                                <th>Actieve verhuringen</th>
+                                <th>Totaal verhuringen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guests-tbody">
+                            <tr><td colspan="4">Laden...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="/js/auth-utils.js"></script>
+    <script src="/js/admin-layout.js"></script>
+    <script src="/js/admin-guests.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AdminLayout.init();
+            AdminGuests.init();
+        });
+    </script>
+</body>
+</html>

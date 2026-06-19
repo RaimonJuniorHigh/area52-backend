@@ -6,7 +6,7 @@
 const AdminLayout = (() => {
     const NAV_ITEMS = [
         { id: 'dashboard', label: 'Dashboard', href: '/dashboard', icon: 'grid' },
-        { id: 'guests',    label: 'Guests',    href: '#',         icon: 'users' },
+        { id: 'guests',    label: 'Guests',    href: '/guests',   icon: 'users' },
         { id: 'bookings',  label: 'Bookings',  href: '#',         icon: 'calendar' },
         { id: 'rentals',   label: 'Fietsen',   href: '/bikes',    icon: 'bike' },
         { id: 'settings',  label: 'Settings',  href: '#',         icon: 'settings' },

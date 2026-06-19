@@ -6,6 +6,7 @@ import cors from 'cors';
 import path from 'path';
 import authRoutes from './routes/authRoutes';
 import { adminBikeRoutes, guestBikeRoutes } from './routes/bikeRoutes';
+import adminGuestRoutes from './routes/adminGuestRoutes';
 import guestRoutes from './routes/guestRoutes';
 import { authenticateToken, requireRole, AuthRequest } from './middleware/authMiddleware';
 
@@ -30,9 +31,11 @@ app.get('/evenementen', (_req, res) => res.sendFile(path.join(viewsPath, 'evenem
 app.get('/historie', (_req, res) => res.sendFile(path.join(viewsPath, 'historie.html')));
 app.get('/dashboard', (_req, res) => res.sendFile(path.join(viewsPath, 'dashboard.html')));
 app.get('/bikes', (_req, res) => res.sendFile(path.join(viewsPath, 'bikes.html')));
+app.get('/guests', (_req, res) => res.sendFile(path.join(viewsPath, 'guests.html')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin/bikes', adminBikeRoutes);
+app.use('/api/admin/guests', adminGuestRoutes);
 app.use('/api/guest/bikes', guestBikeRoutes);
 app.use('/api/guest', guestRoutes);
 

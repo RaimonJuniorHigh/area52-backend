@@ -387,6 +387,11 @@ a.admin-btn {
     margin-bottom: 28px;
 }
 
+.admin-stats--compact {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 480px;
+}
+
 .admin-stat-card {
     background: var(--surface);
     border: 1px solid var(--border);
