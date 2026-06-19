@@ -26,13 +26,16 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // 4. Database logic: Nieuwe gebruiker invoegen
-        // WAAROM: Registratie is voor parkbezoekers — admin-accounts worden alleen via de database aangemaakt.
-        const insertQuery = 'INSERT INTO users (email, password_hash, role) VALUES ($1, $2, $3)';
-        await pool.query(insertQuery, [email, hashedPassword, 'guest']);
+        // 4. Database logic: Nieuwe gebruiker invoegen (guestId = users.id voor verhuur)
+        const insertQuery =
+            'INSERT INTO users (email, password_hash, role) VALUES ($1, $2, $3) RETURNING id';
+        const inserted = await pool.query(insertQuery, [email, hashedPassword, 'guest']);
 
         // 5. Succesrespons
-        res.status(201).json({ message: "Account succesvol aangemaakt!" });
+        res.status(201).json({
+            message: 'Account succesvol aangemaakt!',
+            userId: inserted.rows[0].id,
+        });
 
     } catch (error) {
         // Log de fout naar de server-console voor debugging
