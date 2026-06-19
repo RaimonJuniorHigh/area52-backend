@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area52 Admin | Gasten</title>
+    <title>Area52 Admin | Gebruikers</title>
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body class="admin-layout" data-page="guests">
@@ -12,32 +12,38 @@
         <main class="admin-content">
 
             <div class="admin-page-header">
-                <h1>Gasten</h1>
+                <h1>Gebruikers</h1>
             </div>
 
             <div class="admin-stats admin-stats--compact">
                 <div class="admin-stat-card">
-                    <div class="admin-stat-card__label">Totaal gasten</div>
+                    <div class="admin-stat-card__label">Gasten</div>
                     <div class="admin-stat-card__value" id="guest-count">—</div>
                 </div>
                 <div class="admin-stat-card">
-                    <div class="admin-stat-card__label">Met actieve verhuur</div>
-                    <div class="admin-stat-card__value" id="guest-active-count">—</div>
+                    <div class="admin-stat-card__label">Admins</div>
+                    <div class="admin-stat-card__value" id="admin-count">—</div>
                 </div>
+            </div>
+
+            <div class="admin-filter-bar" id="user-filters">
+                <button type="button" class="admin-btn admin-btn--sm" data-filter="all">Alle</button>
+                <button type="button" class="admin-btn admin-btn--sm admin-btn--ghost" data-filter="guest">Gasten</button>
+                <button type="button" class="admin-btn admin-btn--sm admin-btn--ghost" data-filter="admin">Admins</button>
             </div>
 
             <p id="guest-message" class="auth-message"></p>
 
             <section class="admin-panel">
-                <h2 class="admin-panel__title">Alle gastaccounts</h2>
+                <h2 class="admin-panel__title" id="users-table-title">Alle accounts</h2>
                 <div class="admin-table-wrap">
                     <table class="admin-table" id="guests-table">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>E-mail</th>
-                                <th>Actieve verhuringen</th>
-                                <th>Totaal verhuringen</th>
+                                <th>Rol</th>
+                                <th>Acties</th>
                             </tr>
                         </thead>
                         <tbody id="guests-tbody">

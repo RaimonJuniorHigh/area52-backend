@@ -35,7 +35,7 @@ app.get('/guests', (_req, res) => res.sendFile(path.join(viewsPath, 'guests.html
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin/bikes', adminBikeRoutes);
-app.use('/api/admin/guests', adminGuestRoutes);
+app.use('/api/admin/users', adminGuestRoutes);
 app.use('/api/guest/bikes', guestBikeRoutes);
 app.use('/api/guest', guestRoutes);
 

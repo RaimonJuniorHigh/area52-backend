@@ -392,6 +392,18 @@ a.admin-btn {
     max-width: 480px;
 }
 
+.admin-filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.admin-text-muted {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
 .admin-stat-card {
     background: var(--surface);
     border: 1px solid var(--border);
