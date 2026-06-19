@@ -48,7 +48,15 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password, role: 'admin' })
                 });
-                const data = await res.json();
+
+                let data;
+                try {
+                    data = await res.json();
+                } catch {
+                    messageBox.className = 'auth-message auth-message--error';
+                    messageBox.innerText = 'Server gaf geen geldig antwoord. Controleer database-configuratie op Cloud Run.';
+                    return;
+                }
 
                 if (res.ok) {
                     messageBox.className = 'auth-message auth-message--success';
