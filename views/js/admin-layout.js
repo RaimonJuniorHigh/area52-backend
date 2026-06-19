@@ -1,8 +1,6 @@
 // ==========================================
 // AREA52 ADMIN LAYOUT - HERBRUIKBARE COMPONENTEN
-// Doel: Sidebar, topbar en auth-logica centraal beheren voor alle admin-pagina's.
-// Gebruik: Zet data-page op <body>, plaats content in #admin-shell > .admin-content,
-//          en roep AdminLayout.init() aan na DOMContentLoaded.
+// Doel: Sidebar, topbar en auth-logica voor admin-pagina's (medewerkers).
 // ==========================================
 
 const AdminLayout = (() => {
@@ -22,12 +20,17 @@ const AdminLayout = (() => {
         settings: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>',
     };
 
-    function getAuthToken() {
-        return localStorage.getItem('area52_token') || localStorage.getItem('token');
-    }
-
-    function requireAuth() {
-        if (!getAuthToken()) {
+    function requireAdminAccess() {
+        if (!AuthUtils.getToken()) {
+            window.location.href = '/login';
+            return false;
+        }
+        const role = AuthUtils.getRole();
+        if (role === 'guest') {
+            window.location.href = '/portal';
+            return false;
+        }
+        if (role !== 'admin') {
             window.location.href = '/login';
             return false;
         }
@@ -52,7 +55,9 @@ const AdminLayout = (() => {
     }
 
     function renderTopbar() {
+        const email = AuthUtils.getEmail() || 'Onbekend';
         return `<header class="admin-topbar">
+            <span class="role-badge role-badge--admin">Admin</span>
             <button class="admin-topbar__btn" title="Notificaties" aria-label="Notificaties">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
@@ -61,7 +66,7 @@ const AdminLayout = (() => {
             </button>
             <div class="admin-profile" id="admin-profile">
                 <div class="admin-profile__avatar"></div>
-                <span class="admin-profile__name">Admin</span>
+                <span class="admin-profile__name" title="${email}">${email}</span>
                 <span class="admin-profile__chevron">▼</span>
                 <div class="admin-dropdown" id="admin-dropdown">
                     <button class="admin-dropdown__item" id="admin-logout">Uitloggen</button>
@@ -84,8 +89,7 @@ const AdminLayout = (() => {
         const logoutBtn = document.getElementById('admin-logout');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('area52_token');
-                localStorage.removeItem('token');
+                AuthUtils.clearAuth();
                 window.location.href = '/login';
             });
         }
@@ -116,19 +120,20 @@ const AdminLayout = (() => {
     async function verifyApiAccess() {
         try {
             const res = await fetch('/api/admin/dashboard', {
-                headers: { 'Authorization': `Bearer ${getAuthToken()}` }
+                headers: { Authorization: `Bearer ${AuthUtils.getToken()}` },
             });
-            if (!res.ok) window.location.href = '/login';
+            if (res.status === 403) window.location.href = '/portal';
+            else if (!res.ok) window.location.href = '/login';
         } catch {
             window.location.href = '/login';
         }
     }
 
     function init(options = {}) {
-        if (!requireAuth()) return;
+        if (!requireAdminAccess()) return;
         mount();
         if (options.verifyApi !== false) verifyApiAccess();
     }
 
-    return { init, getAuthToken, NAV_ITEMS };
+    return { init };
 })();

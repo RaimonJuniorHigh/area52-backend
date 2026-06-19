@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import pool from '../db/db';
 import { getJwtSecret } from '../config/jwt';
+import { UserRole } from '../types/auth';
 
 export const login = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -30,17 +31,23 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        // 4. Autorisatie: Genereer de JWT Token
+        const role = user.role as UserRole;
+        if (role !== 'guest' && role !== 'admin') {
+            res.status(403).json({ message: 'Onbekende gebruikersrol.' });
+            return;
+        }
+
         const token = jwt.sign(
-            { id: user.id, role: user.role }, 
-            getJwtSecret(), 
+            { id: user.id, email: user.email, role },
+            getJwtSecret(),
             { expiresIn: '2h' }
         );
 
-        // 5. Succesrespons
         res.status(200).json({
-            message: "Authenticatie succesvol",
-            token: token
+            message: 'Authenticatie succesvol',
+            token,
+            role,
+            email: user.email,
         });
 
     } catch (error) {

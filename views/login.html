@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area52 Admin | Inloggen</title>
+    <title>Area52 | Inloggen</title>
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
         <div class="auth-card">
             <div class="auth-brand">
                 <div class="auth-brand__logo">🌲</div>
-                <span class="auth-brand__title">Area52 Admin</span>
+                <span class="auth-brand__title">Area52</span>
             </div>
 
             <h2>Inloggen</h2>
@@ -35,6 +35,7 @@
         </div>
     </div>
 
+    <script src="/js/auth-utils.js"></script>
     <script>
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -53,7 +54,7 @@
                 if (res.ok) {
                     localStorage.setItem('area52_token', data.token);
                     localStorage.setItem('token', data.token);
-                    window.location.href = '/dashboard';
+                    window.location.href = AuthUtils.homeForRole(data.role);
                 } else {
                     messageBox.className = 'auth-message auth-message--error';
                     messageBox.innerText = data.message || 'Inloggen mislukt.';

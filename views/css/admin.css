@@ -294,6 +294,10 @@ body.admin-layout {
 .admin-profile__name {
     font-size: 0.9rem;
     color: var(--text-muted);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .admin-profile__chevron {
@@ -493,4 +497,38 @@ body.admin-layout {
     .admin-stats {
         grid-template-columns: 1fr;
     }
+}
+
+/* --- Rol badges & gastenportaal --- */
+.auth-hint {
+    margin: -8px 0 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    margin-right: auto;
+}
+
+.role-badge--guest {
+    background: var(--surface);
+    color: var(--text-muted);
+}
+
+.role-badge--admin {
+    background: var(--highlight);
+    color: var(--text);
+}
+
+.guest-intro {
+    margin: 0 0 24px;
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 640px;
 }

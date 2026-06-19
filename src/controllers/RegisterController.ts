@@ -4,7 +4,7 @@ import pool from '../db/db';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { email, password, role } = req.body;
+        const { email, password } = req.body;
 
         // 1. Validatie: Check of velden aanwezig zijn
         if (!email || !password) {
@@ -27,9 +27,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // 4. Database logic: Nieuwe gebruiker invoegen
-        const insertQuery = 'INSERT INTO users (email, password_hash, role) VALUES ($1, $2, $3)';        
-        const userRole = role || 'guest'; // Standaardwaarde
-        await pool.query(insertQuery, [email, hashedPassword, userRole]);
+        // WAAROM: Registratie is voor parkbezoekers — admin-accounts worden alleen via de database aangemaakt.
+        const insertQuery = 'INSERT INTO users (email, password_hash, role) VALUES ($1, $2, $3)';
+        await pool.query(insertQuery, [email, hashedPassword, 'guest']);
 
         // 5. Succesrespons
         res.status(201).json({ message: "Account succesvol aangemaakt!" });

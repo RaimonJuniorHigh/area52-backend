@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area52 Admin | Registreren</title>
+    <title>Area52 | Registreren</title>
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
@@ -11,10 +11,11 @@
         <div class="auth-card">
             <div class="auth-brand">
                 <div class="auth-brand__logo">🌲</div>
-                <span class="auth-brand__title">Area52 Admin</span>
+                <span class="auth-brand__title">Area52</span>
             </div>
 
             <h2>Account aanmaken</h2>
+            <p class="auth-hint">Registreer als gast om het vakantiepark te bezoeken.</p>
             <form id="register-form">
                 <div class="auth-field">
                     <label for="email">E-mailadres</label>
@@ -46,7 +47,7 @@
                 const res = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password, role: 'admin' })
+                    body: JSON.stringify({ email, password })
                 });
 
                 let data;
