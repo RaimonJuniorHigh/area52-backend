@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Bike, calculateTotalPrice } from '../models/Bike';
+import { canRent, GuestValidator } from '../validations/age';
 
 interface Props {
   bike: Bike;
@@ -9,6 +10,25 @@ interface Props {
 
 export default function RentModal({ bike, onConfirm, onClose }: Props) {
   const [days, setDays] = useState(3);
+  const [age, setAge] = useState<number | ''>('');
+  const [error, setError] = useState<string | null>(null);
+
+  function handleConfirm() {
+    if (age === '') {
+      setError('Please enter your age.');
+      return;
+    }
+
+    const guest: GuestValidator = { name: '', age: Number(age) };
+
+    if (!canRent(guest)) {
+      setError('You must be at least 18 years old to rent a bike.');
+      return;
+    }
+
+    setError(null);
+    onConfirm(bike, days);
+  }
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -47,7 +67,21 @@ export default function RentModal({ bike, onConfirm, onClose }: Props) {
           </div>
         </div>
 
-        <button className="btn-confirm" onClick={() => onConfirm(bike, days)}>
+        <div className="modal__age">
+          <label>Your age</label>
+          <input
+            type="number"
+            min={0}
+            max={120}
+            value={age}
+            onChange={e => setAge(e.target.value === '' ? '' : Number(e.target.value))}
+            placeholder="Enter your age"
+          />
+        </div>
+
+        {error && <p className="modal__error">{error}</p>}
+
+        <button className="btn-confirm" onClick={handleConfirm}>
           Confirm rental
         </button>
       </div>

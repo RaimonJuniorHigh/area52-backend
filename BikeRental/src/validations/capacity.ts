@@ -5,6 +5,6 @@ export interface Activity {
   minAge: number;
 }
 
-export function hasCapacity(Activity: Activity): boolean {
-  return Activity.currentParticipants < Activity.maxParticipants;
+export function hasCapacity(activity: Activity): boolean {
+  return activity.currentParticipants < activity.maxParticipants;
 }

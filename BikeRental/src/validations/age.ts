@@ -1,15 +1,14 @@
-export const MIN_AGE_ACTIVITY = 16;
 export const MIN_AGE_RENTAL = 18;
 
-export interface Guest {
+export interface GuestValidator {
   name: string;
   age: number;
 }
 
-export function canParticipate(Guets: Guest): boolean {
-  return Guets.age >= MIN_AGE_ACTIVITY;
+export function canRent(guest: GuestValidator): boolean {
+  return guest.age >= MIN_AGE_RENTAL;
 }
 
-export function canRent(Guets: Guest): boolean {
-  return Guets.age >= MIN_AGE_RENTAL;
+export function canParticipate(guest: GuestValidator, minAge: number): boolean {
+  return guest.age >= minAge;
 }
