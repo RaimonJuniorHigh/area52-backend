@@ -98,6 +98,12 @@ const GuestBikes = (() => {
         document.getElementById('rent-start')?.addEventListener('change', updatePricePreview);
         document.getElementById('rent-end')?.addEventListener('change', updatePricePreview);
 
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('rent-modal');
+            if (!modal || modal.hidden) return;
+            if (e.key === 'Escape') e.preventDefault();
+        });
+
         document.getElementById('rent-form')?.addEventListener('submit', async (e) => {
             e.preventDefault();
             const bikeId = Number(document.getElementById('rent-bike-id').value);
@@ -113,10 +119,6 @@ const GuestBikes = (() => {
             } catch (err) {
                 showMessage(err.message, true);
             }
-        });
-
-        document.getElementById('rent-modal')?.addEventListener('click', (e) => {
-            if (e.target.id === 'rent-modal') closeModal();
         });
     }
 

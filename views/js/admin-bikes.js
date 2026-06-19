@@ -20,14 +20,31 @@ const AdminBikes = (() => {
         el.innerText = text;
     }
 
-    function resetForm() {
+    function setEditingRow(id) {
+        document.querySelectorAll('#bikes-tbody tr[data-bike-id]').forEach(row => {
+            row.classList.toggle('bike-table__row--editing', row.dataset.bikeId === String(id));
+        });
+    }
+
+    function openFormModal() {
+        document.getElementById('bike-form-modal').hidden = false;
+    }
+
+    function closeFormModal() {
+        document.getElementById('bike-form-modal').hidden = true;
+        setEditingRow(null);
+    }
+
+    function openFormForCreate() {
         document.getElementById('bike-id').value = '';
         document.getElementById('bike-form').reset();
         document.getElementById('bike-deposit').value = '0';
         document.getElementById('bike-status').value = 'available';
         document.getElementById('bike-form-title').innerText = 'Fiets toevoegen';
         document.getElementById('bike-submit-btn').innerText = 'Opslaan';
+        setEditingRow(null);
         showMessage('');
+        openFormModal();
     }
 
     function fillForm(bike) {
@@ -40,7 +57,20 @@ const AdminBikes = (() => {
         document.getElementById('bike-status').value = bike.status;
         document.getElementById('bike-form-title').innerText = 'Fiets bewerken';
         document.getElementById('bike-submit-btn').innerText = 'Bijwerken';
+        setEditingRow(bike.id);
         showMessage('');
+        openFormModal();
+    }
+
+    function resetForm() {
+        document.getElementById('bike-id').value = '';
+        document.getElementById('bike-form').reset();
+        document.getElementById('bike-deposit').value = '0';
+        document.getElementById('bike-status').value = 'available';
+        document.getElementById('bike-form-title').innerText = 'Fiets toevoegen';
+        document.getElementById('bike-submit-btn').innerText = 'Opslaan';
+        showMessage('');
+        closeFormModal();
     }
 
     function statusLabel(status) {
@@ -59,7 +89,7 @@ const AdminBikes = (() => {
         }
 
         tbody.innerHTML = bikes.map(bike => `
-            <tr>
+            <tr data-bike-id="${bike.id}">
                 <td>${bike.id}</td>
                 <td>${bike.name}</td>
                 <td>${bike.type}</td>
@@ -121,6 +151,23 @@ const AdminBikes = (() => {
         }
     }
 
+    async function editBike(id) {
+        const cached = bikesCache.find(b => String(b.id) === String(id));
+        if (cached) {
+            fillForm(cached);
+            return;
+        }
+
+        try {
+            const res = await fetch(`${API}/${id}`, { headers: authHeaders() });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || 'Fiets laden mislukt');
+            fillForm(data);
+        } catch (err) {
+            showMessage(err.message, true);
+        }
+    }
+
     async function deleteBike(id) {
         if (!confirm('Weet je zeker dat je deze fiets wilt verwijderen?')) return;
 
@@ -131,6 +178,8 @@ const AdminBikes = (() => {
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || 'Verwijderen mislukt');
+            const editingId = document.getElementById('bike-id').value;
+            if (editingId === String(id)) resetForm();
             await loadBikes();
         } catch (err) {
             showMessage(err.message, true);
@@ -139,24 +188,27 @@ const AdminBikes = (() => {
 
     function bindEvents() {
         document.getElementById('bike-form')?.addEventListener('submit', saveBike);
-        document.getElementById('bike-reset-btn')?.addEventListener('click', resetForm);
+        document.getElementById('bike-reset-btn')?.addEventListener('click', openFormForCreate);
         document.getElementById('bike-cancel-btn')?.addEventListener('click', resetForm);
 
         document.getElementById('bikes-tbody')?.addEventListener('click', (e) => {
-            const editId = e.target.dataset?.edit;
-            const deleteId = e.target.dataset?.delete;
+            const editBtn = e.target.closest('[data-edit]');
+            const deleteBtn = e.target.closest('[data-delete]');
 
-            if (editId) {
-                const bike = bikesCache.find(b => String(b.id) === editId);
-                if (bike) fillForm(bike);
-            }
-            if (deleteId) deleteBike(deleteId);
+            if (editBtn) editBike(editBtn.dataset.edit);
+            if (deleteBtn) deleteBike(deleteBtn.dataset.delete);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('bike-form-modal');
+            if (!modal || modal.hidden) return;
+            if (e.key === 'Escape') e.preventDefault();
         });
     }
 
     function init() {
         bindEvents();
-        resetForm();
+        closeFormModal();
         loadBikes();
     }
 

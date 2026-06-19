@@ -709,6 +709,15 @@ a.admin-btn {
     font-size: 1.2rem;
 }
 
+.guest-modal__card--wide {
+    max-width: 720px;
+}
+
+.guest-modal__card--wide .admin-panel__title {
+    margin: 0 0 20px;
+    font-size: 1.2rem;
+}
+
 .guest-price-preview {
     margin: 8px 0 0;
     font-weight: 600;
@@ -758,6 +767,14 @@ a.admin-btn {
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
+}
+
+.bike-table__row--editing {
+    background: #f0f7ff;
+}
+
+.bike-table__row--editing td {
+    border-color: #4a90d9;
 }
 
 @media (max-width: 900px) {
