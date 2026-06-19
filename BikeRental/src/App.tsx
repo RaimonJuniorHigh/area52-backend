@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Bike, bikes as initialBikes } from './models/Bike';
 import BikeCard from './components/BikeCard';
 import RentModal from './components/RentModal';
+import { createRentalLog } from './models/rentalLog';
 
 type Filter = 'all' | 'bike' | 'electric bike' | 'racebike' | 'mountainbike';
 
@@ -31,6 +32,9 @@ export default function App() {
     setBikes(prev =>
       prev.map(b => b.id === bike.id ? { ...b, isRented: true } : b)
     );
+    
+    const rental = createRentalLog(bike, 1, days); // guestId tijdelijk hardcoded op 1
+    
     setSelectedBike(null);
     showToast(`✓ ${bike.name} booked for ${days} days — €${bike.pricePerDay * days}`);
   }
