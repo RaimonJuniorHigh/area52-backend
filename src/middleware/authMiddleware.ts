@@ -1,21 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { getJwtSecret } from '../config/jwt';
 
 /**
  * ==========================================
  * ARCHITECTUUR NOTITIES - AREA52 MIDDLEWARE
  * Doel: Beveiligen van private routes met JWT verificatie.
  * ==========================================
- * * HOE DEZE BEWAKER WERKT:
- * 1. Onderscheppen: Voordat een verzoek bij de uiteindelijke logica (bijv. Admin Dashboard) komt, 
- * loopt het eerst door deze functie.
- * 2. Header Check: We zoeken naar de 'Authorization' header in het HTTP-verzoek. 
- * De standaard notatie die Abdou in React moet gebruiken is: "Bearer <jouw_token_hier>".
- * 3. Verificatie: We controleren de token met onze JWT_SECRET. Klopt de handtekening en is 
- * de token niet verlopen? Dan roepen we next() aan en mag de gebruiker door.
  */
-
-const JWT_SECRET = process.env.JWT_SECRET || 'super_geheime_area52_sleutel_123';
 
 // Breid de standaard Express Request uit zodat we de ingelogde user data kunnen doorgeven
 export interface AuthRequest extends Request {
@@ -37,7 +29,7 @@ export const authenticateToken = (req: AuthRequest, res: Response, next: NextFun
 
     try {
         // 4. Verifieer de token met onze geheime sleutel
-        const verified = jwt.verify(token, JWT_SECRET);
+        const verified = jwt.verify(token, getJwtSecret());
         
         // 5. Plak de ontcijferde data (id en role) aan het verzoek vast voor de volgende stap
         req.user = verified;

@@ -2,12 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import pool from '../db/db';
-
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!process.env.JWT_SECRET) {
-    throw new Error("JWT_SECRET is niet gedefinieerd in de server-omgeving.");
-}
-
+import { getJwtSecret } from '../config/jwt';
 
 export const login = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -38,7 +33,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         // 4. Autorisatie: Genereer de JWT Token
         const token = jwt.sign(
             { id: user.id, role: user.role }, 
-            process.env.JWT_SECRET as string, 
+            getJwtSecret(), 
             { expiresIn: '2h' }
         );
 

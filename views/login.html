@@ -43,7 +43,7 @@
             const messageBox = document.getElementById('login-message');
 
             try {
-                const res = await fetch('https://area52-backend-test-640467325189.europe-west1.run.app/api/auth/login', {
+                const res = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
