@@ -2,13 +2,23 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "rootDir": "./src",
+    "rootDir": ".",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*",
+    "BikeRental/src/models/**/*",
+    "BikeRental/src/validations/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "BikeRental/src/tests/**/*",
+    "BikeRental/src/components/**/*",
+    "BikeRental/src/models/rentalLog.ts"
+  ]
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area52 Admin | Fietsen</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-layout" data-page="rentals">
+
+    <div class="admin-shell" id="admin-shell">
+        <main class="admin-content">
+
+            <div class="admin-page-header">
+                <h1>Fietsenverhuur</h1>
+                <button class="admin-btn" id="bike-reset-btn" type="button">Nieuwe fiets</button>
+            </div>
+
+            <section class="admin-panel admin-panel--form">
+                <h2 class="admin-panel__title" id="bike-form-title">Fiets toevoegen</h2>
+                <form id="bike-form" class="bike-form">
+                    <input type="hidden" id="bike-id">
+
+                    <div class="bike-form__grid">
+                        <div class="auth-field">
+                            <label for="bike-name">Naam</label>
+                            <input id="bike-name" type="text" required placeholder="bijv. Gazelle">
+                        </div>
+                        <div class="auth-field">
+                            <label for="bike-type">Type</label>
+                            <select id="bike-type" required>
+                                <option value="bike">bike</option>
+                                <option value="electric bike">electric bike</option>
+                                <option value="racebike">racebike</option>
+                                <option value="mountainbike">mountainbike</option>
+                            </select>
+                        </div>
+                        <div class="auth-field">
+                            <label for="bike-price">Prijs per dag (€)</label>
+                            <input id="bike-price" type="number" min="0" step="0.01" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="bike-deposit">Borg (€)</label>
+                            <input id="bike-deposit" type="number" min="0" step="0.01" value="0">
+                        </div>
+                        <div class="auth-field">
+                            <label for="bike-image">Afbeelding URL</label>
+                            <input id="bike-image" type="text" placeholder="/bike-images/Gazelle.webp">
+                        </div>
+                        <div class="auth-field">
+                            <label for="bike-status">Status</label>
+                            <select id="bike-status">
+                                <option value="available">Beschikbaar</option>
+                                <option value="rented">Verhuurd</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bike-form__actions">
+                        <button type="submit" class="admin-btn" id="bike-submit-btn">Opslaan</button>
+                        <button type="button" class="admin-btn admin-btn--ghost" id="bike-cancel-btn">Annuleren</button>
+                    </div>
+                </form>
+                <p id="bike-form-message" class="auth-message"></p>
+            </section>
+
+            <section class="admin-panel">
+                <h2 class="admin-panel__title">Alle fietsen</h2>
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="bikes-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Naam</th>
+                                <th>Type</th>
+                                <th>Prijs/dag</th>
+                                <th>Borg</th>
+                                <th>Status</th>
+                                <th>Acties</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bikes-tbody">
+                            <tr><td colspan="7">Laden...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="/js/auth-utils.js"></script>
+    <script src="/js/admin-layout.js"></script>
+    <script src="/js/admin-bikes.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AdminLayout.init();
+            AdminBikes.init();
+        });
+    </script>
+</body>
+</html>

@@ -4,6 +4,7 @@
 
 const GuestBikes = (() => {
     let selectedBike = null;
+    let bikesCache = [];
 
     function showMessage(text, isError = false) {
         const el = document.getElementById('bike-message');
@@ -12,32 +13,56 @@ const GuestBikes = (() => {
         el.innerText = text;
     }
 
+    function ensureAgeField() {
+        if (document.getElementById('rent-age')) return;
+        const form = document.getElementById('rent-form');
+        const preview = document.getElementById('rent-price-preview');
+        if (!form || !preview) return;
+
+        const field = document.createElement('div');
+        field.className = 'auth-field';
+        field.innerHTML = `
+            <label for="rent-age">Leeftijd</label>
+            <input id="rent-age" type="number" min="0" max="120" required placeholder="Minimaal 18 jaar">
+        `;
+        form.insertBefore(field, preview);
+    }
+
     function renderBikes() {
         const grid = document.getElementById('bike-grid');
         if (!grid) return;
 
-        const bikes = GuestMockData.getBikes();
-        grid.innerHTML = bikes.map(bike => `
+        grid.innerHTML = bikesCache.map(bike => `
             <article class="guest-bike-card">
                 <div class="guest-bike-card__icon">🚲</div>
                 <h3>${bike.name}</h3>
                 <p class="guest-bike-card__type">${bike.type}</p>
-                <p class="guest-bike-card__price">${GuestMockData.formatEuro(bike.pricePerDay)}/dag · borg ${GuestMockData.formatEuro(bike.deposit)}</p>
-                <button class="admin-btn" data-rent="${bike.id}" ${bike.isBookedByUser ? 'disabled' : ''}>
-                    ${bike.isBookedByUser ? 'Geboekt' : 'Huren'}
+                <p class="guest-bike-card__price">${GuestApi.formatEuro(bike.pricePerDay)}/dag · borg ${GuestApi.formatEuro(bike.deposit)}</p>
+                <button class="admin-btn" data-rent="${bike.id}" ${bike.isBookedByUser || bike.isRented ? 'disabled' : ''}>
+                    ${bike.isBookedByUser ? 'Geboekt' : bike.isRented ? 'Verhuurd' : 'Huren'}
                 </button>
             </article>
         `).join('');
     }
 
+    async function loadBikes() {
+        try {
+            bikesCache = await GuestApi.getBikes();
+            renderBikes();
+        } catch (err) {
+            showMessage(err.message, true);
+        }
+    }
+
     function openModal(bikeId) {
-        selectedBike = GuestMockData.getBikes().find(b => b.id === bikeId);
+        selectedBike = bikesCache.find(b => b.id === bikeId);
         if (!selectedBike) return;
 
         document.getElementById('rent-bike-id').value = bikeId;
         document.getElementById('rent-modal-title').textContent = `${selectedBike.name} huren`;
         document.getElementById('rent-start').value = '';
         document.getElementById('rent-end').value = '';
+        document.getElementById('rent-age').value = '';
         document.getElementById('rent-price-preview').textContent = '';
         document.getElementById('rent-modal').hidden = false;
     }
@@ -60,7 +85,7 @@ const GuestBikes = (() => {
             return;
         }
         const days = Math.ceil((endD - startD) / (1000 * 60 * 60 * 24)) + 1;
-        preview.textContent = `Totaal: ${GuestMockData.formatEuro(selectedBike.pricePerDay * days)} (${days} dag(en))`;
+        preview.textContent = `Totaal: ${GuestApi.formatEuro(selectedBike.pricePerDay * days)} (${days} dag(en))`;
     }
 
     function bindEvents() {
@@ -73,19 +98,20 @@ const GuestBikes = (() => {
         document.getElementById('rent-start')?.addEventListener('change', updatePricePreview);
         document.getElementById('rent-end')?.addEventListener('change', updatePricePreview);
 
-        document.getElementById('rent-form')?.addEventListener('submit', (e) => {
+        document.getElementById('rent-form')?.addEventListener('submit', async (e) => {
             e.preventDefault();
             const bikeId = Number(document.getElementById('rent-bike-id').value);
             const startDate = document.getElementById('rent-start').value;
             const endDate = document.getElementById('rent-end').value;
-            const result = GuestMockData.rentBike(bikeId, startDate, endDate);
+            const age = Number(document.getElementById('rent-age').value);
 
-            if (result.ok) {
-                showMessage(result.message);
+            try {
+                const data = await GuestApi.rentBike(bikeId, startDate, endDate, age);
+                showMessage(data.message);
                 closeModal();
-                renderBikes();
-            } else {
-                showMessage(result.message, true);
+                await loadBikes();
+            } catch (err) {
+                showMessage(err.message, true);
             }
         });
 
@@ -95,8 +121,9 @@ const GuestBikes = (() => {
     }
 
     function init() {
+        ensureAgeField();
         bindEvents();
-        renderBikes();
+        loadBikes();
     }
 
     return { init };

@@ -721,11 +721,50 @@ a.admin-btn {
     margin-top: 16px;
 }
 
+.admin-panel--form {
+    margin-bottom: 24px;
+}
+
+.bike-form__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.bike-form__grid .auth-field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: var(--surface);
+}
+
 .admin-btn--ghost {
     background: var(--surface);
 }
 
+.admin-btn--sm {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+.admin-btn--danger {
+    border-color: #b00020;
+    color: #b00020;
+}
+
+.bike-table__actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
 @media (max-width: 900px) {
+    .bike-form__grid {
+        grid-template-columns: 1fr;
+    }
+
     .guest-bike-grid {
         grid-template-columns: repeat(2, 1fr);
     }

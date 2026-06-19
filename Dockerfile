@@ -18,4 +18,4 @@ RUN npm prune --production
 
 EXPOSE 8080
 
-CMD ["node", "dist/app.js"]
+CMD ["node", "dist/src/app.js"]

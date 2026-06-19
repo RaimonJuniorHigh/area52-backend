@@ -10,20 +10,19 @@ const GuestEvents = (() => {
         el.innerText = text;
     }
 
-    function renderEvents() {
+    function renderEvents(events) {
         const list = document.getElementById('event-list');
         if (!list) return;
 
-        const events = GuestMockData.getEvents();
         list.innerHTML = events.map(event => `
             <article class="guest-event-card">
                 <div class="guest-event-card__header">
                     <h3>${event.title}</h3>
-                    <span class="admin-badge admin-badge--active">${GuestMockData.formatEuro(event.price)}</span>
+                    <span class="admin-badge admin-badge--active">${GuestApi.formatEuro(event.price)}</span>
                 </div>
                 <p class="guest-event-card__desc">${event.description}</p>
                 <div class="guest-event-card__meta">
-                    <span>${GuestMockData.formatDate(event.date)} · ${event.time}</span>
+                    <span>${event.time}${event.endTime ? ' – ' + event.endTime : ''} · ${event.location}</span>
                     <span>${event.spotsLeft} plek(ken) over</span>
                 </div>
                 <button class="admin-btn" data-book="${event.id}"
@@ -34,24 +33,33 @@ const GuestEvents = (() => {
         `).join('');
     }
 
+    async function loadEvents() {
+        try {
+            const events = await GuestApi.getEvents();
+            renderEvents(events);
+        } catch (err) {
+            showMessage(err.message, true);
+        }
+    }
+
     function bindEvents() {
-        document.getElementById('event-list')?.addEventListener('click', (e) => {
+        document.getElementById('event-list')?.addEventListener('click', async (e) => {
             const id = Number(e.target.dataset?.book);
             if (!id) return;
 
-            const result = GuestMockData.bookEvent(id);
-            if (result.ok) {
-                showMessage(result.message);
-                renderEvents();
-            } else {
-                showMessage(result.message, true);
+            try {
+                const data = await GuestApi.bookEvent(id);
+                showMessage(data.message);
+                await loadEvents();
+            } catch (err) {
+                showMessage(err.message, true);
             }
         });
     }
 
     function init() {
         bindEvents();
-        renderEvents();
+        loadEvents();
     }
 
     return { init };
