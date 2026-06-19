@@ -12,8 +12,9 @@ import { authenticateToken, requireRole, AuthRequest } from './middleware/authMi
 const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
 
-const viewsPath = path.join(__dirname, '..', 'views');
-const bikeImagesPath = path.join(__dirname, '..', 'BikeRental', 'public', 'bike-images');
+// views/ en BikeRental/ staan in de projectroot (niet in dist/)
+const viewsPath = path.join(process.cwd(), 'views');
+const bikeImagesPath = path.join(process.cwd(), 'BikeRental', 'public', 'bike-images');
 
 app.use(cors());
 app.use(express.json());
