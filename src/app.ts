@@ -20,6 +20,9 @@ app.get('/', (_req, res) => res.redirect('/login'));
 app.get('/login', (_req, res) => res.sendFile(path.join(viewsPath, 'login.html')));
 app.get('/register', (_req, res) => res.sendFile(path.join(viewsPath, 'regist.html')));
 app.get('/portal', (_req, res) => res.sendFile(path.join(viewsPath, 'portal.html')));
+app.get('/fietsen', (_req, res) => res.sendFile(path.join(viewsPath, 'fietsen.html')));
+app.get('/evenementen', (_req, res) => res.sendFile(path.join(viewsPath, 'evenementen.html')));
+app.get('/historie', (_req, res) => res.sendFile(path.join(viewsPath, 'historie.html')));
 app.get('/dashboard', (_req, res) => res.sendFile(path.join(viewsPath, 'dashboard.html')));
 
 app.use('/api/auth', authRoutes);

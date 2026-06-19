@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area52 | Historie</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-layout" data-page="history">
+
+    <div class="admin-shell" id="guest-shell">
+        <main class="admin-content">
+
+            <div class="admin-page-header">
+                <h1>Boekingshistorie</h1>
+            </div>
+
+            <p class="guest-intro">Overzicht van afgeronde boekingen en eerdere activiteiten.</p>
+
+            <section class="admin-panel">
+                <div id="history-list" class="guest-booking-list"></div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="/js/auth-utils.js"></script>
+    <script src="/js/guest-mock-data.js"></script>
+    <script src="/js/guest-layout.js"></script>
+    <script src="/js/guest-history.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            GuestLayout.init();
+            GuestHistory.init();
+        });
+    </script>
+</body>
+</html>

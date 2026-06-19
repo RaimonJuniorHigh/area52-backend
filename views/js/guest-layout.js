@@ -1,15 +1,21 @@
 // ==========================================
 // AREA52 GUEST LAYOUT
-// Doel: Beveiligde shell voor gasten (parkbezoekers) — geen admin-toegang.
+// Doel: Beveiligde shell voor gasten (parkbezoekers).
 // ==========================================
 
 const GuestLayout = (() => {
     const NAV_ITEMS = [
         { id: 'portal', label: 'Overzicht', href: '/portal', icon: 'home' },
+        { id: 'bikes', label: 'Fietsen huren', href: '/fietsen', icon: 'bike' },
+        { id: 'events', label: 'Evenementen', href: '/evenementen', icon: 'calendar' },
+        { id: 'history', label: 'Historie', href: '/historie', icon: 'history' },
     ];
 
     const ICONS = {
         home: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg>',
+        bike: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M9 17.5h6M5.5 14V9l3-4h7l3 4v5"/></svg>',
+        calendar: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+        history: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
     };
 
     function requireGuestAccess() {
@@ -72,13 +78,10 @@ const GuestLayout = (() => {
             document.addEventListener('click', () => dropdown.classList.remove('open'));
         }
 
-        const logoutBtn = document.getElementById('guest-logout');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                AuthUtils.clearAuth();
-                window.location.href = '/login';
-            });
-        }
+        document.getElementById('guest-logout')?.addEventListener('click', () => {
+            AuthUtils.clearAuth();
+            window.location.href = '/login';
+        });
     }
 
     function mount() {
@@ -101,14 +104,6 @@ const GuestLayout = (() => {
         shell.appendChild(main);
 
         bindTopbarEvents();
-
-        const intro = shell.querySelector('.guest-intro');
-        if (intro) {
-            const email = AuthUtils.getEmail();
-            intro.textContent = email
-                ? `Ingelogd als ${email} (gast)`
-                : 'Ingelogd als gast';
-        }
     }
 
     async function verifyApiAccess() {
