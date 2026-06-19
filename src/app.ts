@@ -7,6 +7,7 @@ import path from 'path';
 import authRoutes from './routes/authRoutes';
 import { adminBikeRoutes, guestBikeRoutes } from './routes/bikeRoutes';
 import adminGuestRoutes from './routes/adminGuestRoutes';
+import { adminFacilityRoutes, guestFacilityRoutes } from './routes/facilityRoutes';
 import guestRoutes from './routes/guestRoutes';
 import { authenticateToken, requireRole, AuthRequest } from './middleware/authMiddleware';
 
@@ -32,11 +33,15 @@ app.get('/historie', (_req, res) => res.sendFile(path.join(viewsPath, 'historie.
 app.get('/dashboard', (_req, res) => res.sendFile(path.join(viewsPath, 'dashboard.html')));
 app.get('/bikes', (_req, res) => res.sendFile(path.join(viewsPath, 'bikes.html')));
 app.get('/guests', (_req, res) => res.sendFile(path.join(viewsPath, 'guests.html')));
+app.get('/openingstijden', (_req, res) => res.sendFile(path.join(viewsPath, 'openingstijden.html')));
+app.get('/openingstijden-beheer', (_req, res) => res.sendFile(path.join(viewsPath, 'openingstijden-beheer.html')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin/bikes', adminBikeRoutes);
 app.use('/api/admin/users', adminGuestRoutes);
+app.use('/api/admin/facilities', adminFacilityRoutes);
 app.use('/api/guest/bikes', guestBikeRoutes);
+app.use('/api/guest/facilities', guestFacilityRoutes);
 app.use('/api/guest', guestRoutes);
 
 app.get('/api/guest/portal', authenticateToken, requireRole('guest'), (_req: AuthRequest, res) => {

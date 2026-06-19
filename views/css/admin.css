@@ -794,6 +794,196 @@ a.admin-btn {
     border-color: #4a90d9;
 }
 
+/* --- Openingstijden --- */
+.hours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.hours-card {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.hours-card--open {
+    border-color: #2e7d32;
+    box-shadow: 0 4px 16px rgba(46, 125, 50, 0.12);
+}
+
+.hours-card--closed {
+    opacity: 0.92;
+}
+
+.hours-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+.hours-card__icon {
+    font-size: 2rem;
+    line-height: 1;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--highlight);
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.hours-card__titles {
+    flex: 1;
+    min-width: 0;
+}
+
+.hours-card__category {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.hours-card__name {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.hours-card__status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.hours-card--open .hours-card__status {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.hours-card--closed .hours-card__status {
+    background: var(--highlight);
+    color: var(--text-muted);
+}
+
+.hours-card__desc {
+    margin: 0 0 14px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+.hours-card__days {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border-light);
+}
+
+.hours-card__day {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.hours-card__day:last-child {
+    border-bottom: none;
+}
+
+.hours-card__day-name {
+    color: var(--text-muted);
+}
+
+.hours-card__day-time {
+    font-weight: 500;
+    text-align: right;
+}
+
+.hours-col-drag {
+    width: 36px;
+    cursor: grab;
+}
+
+.hours-drag-handle {
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: -2px;
+    user-select: none;
+}
+
+.hours-col-icon {
+    font-size: 1.25rem;
+    width: 40px;
+}
+
+.hours-row--dragging {
+    opacity: 0.45;
+}
+
+.hours-row--over {
+    outline: 2px dashed var(--border);
+    outline-offset: -2px;
+}
+
+.hours-form__subtitle {
+    margin: 20px 0 6px;
+    font-size: 1rem;
+}
+
+.hours-form__hint {
+    margin: 0 0 12px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.hours-form__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.hours-form__row {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.hours-form__day-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.hours-form__closed-label {
+    font-size: 0.85rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.hours-form__open,
+.hours-form__close {
+    padding: 8px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
 @media (max-width: 900px) {
     .bike-form__grid {
         grid-template-columns: 1fr;

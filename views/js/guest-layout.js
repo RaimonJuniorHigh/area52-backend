@@ -8,6 +8,7 @@ const GuestLayout = (() => {
         { id: 'portal', label: 'Overzicht', href: '/portal', icon: 'home' },
         { id: 'bikes', label: 'Fietsen huren', href: '/fietsen', icon: 'bike' },
         { id: 'events', label: 'Evenementen', href: '/evenementen', icon: 'calendar' },
+        { id: 'hours', label: 'Openingstijden', href: '/openingstijden', icon: 'clock' },
         { id: 'history', label: 'Historie', href: '/historie', icon: 'history' },
     ];
 
@@ -15,7 +16,8 @@ const GuestLayout = (() => {
         home: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg>',
         bike: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M9 17.5h6M5.5 14V9l3-4h7l3 4v5"/></svg>',
         calendar: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-        history: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
+        clock: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
+        history: '<svg class="admin-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg>',
     };
 
     function requireGuestAccess() {
