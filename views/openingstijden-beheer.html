@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area52 Admin | Openingstijden</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-layout" data-page="hours">
+
+    <div class="admin-shell" id="admin-shell">
+        <main class="admin-content">
+
+            <div class="admin-page-header">
+                <h1>Openingstijden beheren</h1>
+                <button class="admin-btn" id="facility-add-btn" type="button">Nieuwe locatie</button>
+            </div>
+
+            <p class="guest-intro">Sleep rijen om de volgorde aan te passen. Wijzigingen worden automatisch opgeslagen.</p>
+            <p id="facility-message" class="auth-message"></p>
+
+            <section class="admin-panel">
+                <h2 class="admin-panel__title">Locaties</h2>
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="facilities-table">
+                        <thead>
+                            <tr>
+                                <th class="hours-col-drag"></th>
+                                <th>Icon</th>
+                                <th>Naam</th>
+                                <th>Categorie</th>
+                                <th>Status nu</th>
+                                <th>Acties</th>
+                            </tr>
+                        </thead>
+                        <tbody id="facilities-tbody">
+                            <tr><td colspan="6">Laden...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div id="facility-form-modal" class="guest-modal" hidden>
+                <div class="guest-modal__card guest-modal__card--wide" role="dialog" aria-modal="true" aria-labelledby="facility-form-title">
+                    <h2 class="admin-panel__title" id="facility-form-title">Locatie toevoegen</h2>
+                    <form id="facility-form" class="bike-form">
+                        <input type="hidden" id="facility-id">
+
+                        <div class="bike-form__grid">
+                            <div class="auth-field">
+                                <label for="facility-name">Naam</label>
+                                <input id="facility-name" type="text" required>
+                            </div>
+                            <div class="auth-field">
+                                <label for="facility-category">Categorie</label>
+                                <select id="facility-category" required></select>
+                            </div>
+                            <div class="auth-field">
+                                <label for="facility-icon">Icon (emoji)</label>
+                                <input id="facility-icon" type="text" maxlength="4" value="📍">
+                            </div>
+                        </div>
+
+                        <div class="auth-field">
+                            <label for="facility-description">Beschrijving</label>
+                            <input id="facility-description" type="text" placeholder="Korte omschrijving">
+                        </div>
+
+                        <h3 class="hours-form__subtitle">Openingstijden per dag</h3>
+                        <p class="hours-form__hint">Laat open en sluit leeg of vink &quot;Gesloten&quot; aan.</p>
+                        <div id="facility-hours-grid" class="hours-form__grid"></div>
+
+                        <div class="bike-form__actions">
+                            <button type="submit" class="admin-btn" id="facility-submit-btn">Opslaan</button>
+                            <button type="button" class="admin-btn admin-btn--ghost" id="facility-cancel-btn">Annuleren</button>
+                        </div>
+                    </form>
+                    <p id="facility-form-message" class="auth-message"></p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="/js/auth-utils.js"></script>
+    <script src="/js/admin-layout.js"></script>
+    <script src="/js/admin-opening-hours.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AdminLayout.init();
+            AdminOpeningHours.init();
+        });
+    </script>
+</body>
+</html>

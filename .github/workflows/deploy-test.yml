@@ -35,9 +35,10 @@ jobs:
       # Stap 5: Bouwt de Docker-container lokaal op de runner en publiceert (pusht) deze naar de Artifact Registry.
       - name: Build and Push Docker Image
         run: |
-          IMAGE_PATH="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/area52-test-repo/backend-test:latest"
-          docker build -t $IMAGE_PATH .
-          docker push $IMAGE_PATH
+          IMAGE_PATH="europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/area52-test-repo/backend-test"
+          docker build --no-cache -t $IMAGE_PATH:${{ github.sha }} -t $IMAGE_PATH:latest .
+          docker push $IMAGE_PATH:${{ github.sha }}
+          docker push $IMAGE_PATH:latest
 
       # Stap 6: Werkt de webdienst bij op Cloud Run met de zojuist gepubliceerde Docker-image.
       - name: Deploy to Cloud Run
@@ -47,4 +48,7 @@ jobs:
           region: europe-west1
           image: europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/area52-test-repo/backend-test:latest
           # Deze parameter zorgt ervoor dat de API-endpoints bereikbaar zijn vanaf het publieke internet.
-          flags: '--allow-unauthenticated'
+          flags: >-
+            --allow-unauthenticated
+            --set-env-vars=JWT_SECRET=${{ secrets.JWT_SECRET }},DB_PASSWORD=${{ secrets.DB_PASSWORD }},INSTANCE_CONNECTION_NAME=${{ secrets.INSTANCE_CONNECTION_NAME }}
+            --add-cloudsql-instances=${{ secrets.INSTANCE_CONNECTION_NAME }}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area52 | Fietsen huren</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-layout" data-page="bikes">
+
+    <div class="admin-shell" id="guest-shell">
+        <main class="admin-content">
+
+            <div class="admin-page-header">
+                <h1>Fietsen huren</h1>
+            </div>
+
+            <p class="guest-intro">Kies een fiets en selecteer je huurperiode.</p>
+            <p id="bike-message" class="auth-message"></p>
+
+            <div id="bike-grid" class="guest-bike-grid"></div>
+
+            <div id="rent-modal" class="guest-modal" hidden>
+                <div class="guest-modal__card" role="dialog" aria-modal="true" aria-labelledby="rent-modal-title">
+                    <h2 id="rent-modal-title">Fiets huren</h2>
+                    <form id="rent-form">
+                        <input type="hidden" id="rent-bike-id">
+                        <div class="auth-field">
+                            <label for="rent-start">Startdatum</label>
+                            <input id="rent-start" type="date" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="rent-end">Einddatum</label>
+                            <input id="rent-end" type="date" required>
+                        </div>
+                        <p id="rent-price-preview" class="guest-price-preview"></p>
+                        <div class="bike-form__actions">
+                            <button type="submit" class="admin-btn">Bevestig huur</button>
+                            <button type="button" class="admin-btn admin-btn--ghost" id="rent-cancel">Annuleren</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="/js/auth-utils.js"></script>
+    <script src="/js/guest-api.js"></script>
+    <script src="/js/guest-layout.js"></script>
+    <script src="/js/guest-bikes.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            GuestLayout.init();
+            GuestBikes.init();
+        });
+    </script>
+</body>
+</html>

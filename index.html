@@ -71,9 +71,9 @@
             background: white;
             border-radius: 8px;
             padding: 2rem;
-            min-height: 60vh; /* Zorgt dat het vak altijd een mooie hoogte heeft */
+            min-height: 60vh;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 2px dashed #ccc; /* Stippellijn */
+            border: 2px dashed #ccc; 
         }
 
         footer {
@@ -92,14 +92,53 @@
         <h1>🌲 Area52 Systeem</h1>
         <div class="nav-links">
             <a href="#" class="active" id="nav-home">Dashboard</a>
-            <a href="#" id="nav-fiets">Fietsverhuur</a>
+            <a href="#" id="nav-fiets">Test</a>
             <a href="#" id="nav-ent">Entertainment</a>
             <a href="#" id="nav-data">Data & Logging</a>
         </div>
     </navbar>
 
     <main>
-        <div id="main-content"></div>
+        <div id="main-content">
+            
+            <div id="auth-container" style="display: flex; gap: 40px; justify-content: center; align-items: flex-start; font-family: 'Segoe UI', sans-serif;">
+                
+                <div style="padding: 20px; width: 300px;">
+                    <h2 style="color: var(--primary-color); margin-top: 0;">Inloggen</h2>
+                    <form id="login-form">
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: 500;">E-mailadres:</label><br>
+                            <input type="email" id="login-email" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: 500;">Wachtwoord:</label><br>
+                            <input type="password" id="login-password" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <button type="submit" style="width: 100%; padding: 10px; background-color: var(--primary-color); color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 16px;">Log in</button>
+                    </form>
+                    <p id="login-message" style="font-weight: bold; font-size: 14px; margin-top: 15px;"></p>
+                </div>
+
+                <div style="border-left: 2px solid #eee; height: 250px;"></div>
+
+                <div style="padding: 20px; width: 300px;">
+                    <h2 style="color: var(--primary-color); margin-top: 0;">Account Aanmaken</h2>
+                    <form id="register-form">
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: 500;">E-mailadres:</label><br>
+                            <input type="email" id="register-email" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: 500;">Wachtwoord:</label><br>
+                            <input type="password" id="register-password" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                        </div>
+                        <button type="submit" style="width: 100%; padding: 10px; background-color: var(--accent-color); color: var(--primary-color); border: none; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 16px;">Registreer</button>
+                    </form>
+                    <p id="register-message" style="font-weight: bold; font-size: 14px; margin-top: 15px;"></p>
+                </div>
+
+            </div>
+        </div>
     </main>
 
     <footer>

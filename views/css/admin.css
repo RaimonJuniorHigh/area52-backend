@@ -1,0 +1,1006 @@
+/* ==========================================
+   AREA52 ADMIN - GEDEELDE STYLING
+   Doel: Eén visuele basis voor login, register en toekomstige admin-pagina's.
+   Stijl: Wireframe — wit, lichtgrijs, dunne zwarte lijnen, afgeronde hoeken.
+   ========================================== */
+
+:root {
+    --border: #1a1a1a;
+    --border-light: #d8d8d8;
+    --bg: #f5f5f5;
+    --surface: #ffffff;
+    --highlight: #ececec;
+    --text: #1a1a1a;
+    --text-muted: #666666;
+    --radius: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* --- Auth pagina's (login / register) --- */
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+}
+
+.auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.auth-brand__logo {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background: var(--highlight);
+}
+
+.auth-brand__title {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.auth-card h2 {
+    margin: 0 0 20px;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.auth-field {
+    margin-bottom: 16px;
+}
+
+.auth-field label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+.auth-field input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: var(--surface);
+    color: var(--text);
+}
+
+.auth-field input:focus {
+    outline: none;
+    background: var(--highlight);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 11px 16px;
+    margin-top: 8px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--highlight);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.15s;
+}
+
+.auth-btn:hover {
+    background: #e0e0e0;
+}
+
+.auth-message {
+    margin-top: 14px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    min-height: 1.2em;
+}
+
+.auth-message--error {
+    color: #b00020;
+}
+
+.auth-message--success {
+    color: #2e7d32;
+}
+
+.auth-footer {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.auth-footer a {
+    color: var(--text);
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.auth-footer a:hover {
+    color: var(--text-muted);
+}
+
+/* --- Admin layout (dashboard + toekomstige pagina's) --- */
+body.admin-layout {
+    min-height: 100vh;
+}
+
+.admin-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 220px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 18px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.admin-brand__logo {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    background: var(--highlight);
+}
+
+.admin-brand__title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.admin-nav {
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.admin-nav__link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.95rem;
+    border: 1px solid transparent;
+    transition: background 0.15s;
+}
+
+.admin-nav__link:hover {
+    background: var(--highlight);
+}
+
+.admin-nav__link.active {
+    background: var(--highlight);
+    border-color: var(--border-light);
+    font-weight: 600;
+}
+
+.admin-nav__icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.admin-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.admin-topbar {
+    height: 64px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 24px;
+    gap: 12px;
+}
+
+.admin-topbar__btn {
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    color: var(--text);
+}
+
+.admin-topbar__btn:hover {
+    background: var(--highlight);
+    border-color: var(--border-light);
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    position: relative;
+    user-select: none;
+    background: var(--surface);
+}
+
+.admin-profile:hover {
+    background: var(--highlight);
+}
+
+.admin-profile__avatar {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--highlight);
+}
+
+.admin-profile__name {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-profile__chevron {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+.admin-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    min-width: 160px;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.admin-dropdown.open {
+    display: block;
+}
+
+.admin-dropdown__item {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.admin-dropdown__item:hover {
+    background: var(--highlight);
+}
+
+.admin-content {
+    flex: 1;
+    padding: 28px 32px;
+    overflow-y: auto;
+}
+
+.admin-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.admin-page-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.admin-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--highlight);
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.admin-btn:hover {
+    background: #e0e0e0;
+}
+
+a.admin-btn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.admin-stats--compact {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 480px;
+}
+
+.admin-filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.admin-text-muted {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.admin-stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+.admin-stat-card__label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.admin-stat-card__value {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.admin-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+}
+
+.admin-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.admin-panel__title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.admin-panel__actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.admin-table-wrap {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.admin-table th {
+    text-align: left;
+    padding: 12px 14px;
+    background: var(--highlight);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+}
+
+.admin-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid var(--border-light);
+}
+
+.admin-badge--active {
+    background: var(--highlight);
+}
+
+.admin-badge--completed {
+    background: var(--surface);
+    color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+    .admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-shell {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .admin-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .admin-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Rol badges & gastenportaal --- */
+.auth-hint {
+    margin: -8px 0 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    margin-right: auto;
+}
+
+.role-badge--guest {
+    background: var(--surface);
+    color: var(--text-muted);
+}
+
+.role-badge--admin {
+    background: var(--highlight);
+    color: var(--text);
+}
+
+.guest-intro {
+    margin: 0 0 24px;
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 640px;
+}
+
+/* --- Gastenportaal pagina's --- */
+.guest-stats {
+    margin-bottom: 24px;
+}
+
+.guest-panel--compact {
+    margin-top: 24px;
+}
+
+.guest-empty {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.guest-booking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.guest-booking-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--surface);
+}
+
+.guest-booking-item__main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.guest-booking-item__type {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+}
+
+.guest-booking-item__date {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.guest-booking-item__price {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.guest-bike-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.guest-bike-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.guest-bike-card__icon {
+    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--highlight);
+}
+
+.guest-bike-card h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.guest-bike-card__type {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.guest-bike-card__price {
+    margin: 0 0 8px;
+    font-size: 0.9rem;
+}
+
+.guest-event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.guest-event-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+}
+
+.guest-event-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.guest-event-card__header h3 {
+    margin: 0;
+}
+
+.guest-event-card__desc {
+    margin: 0 0 12px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.guest-event-card__meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.guest-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 200;
+}
+
+.guest-modal[hidden] {
+    display: none;
+}
+
+.guest-modal__card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.guest-modal__card h2 {
+    margin: 0 0 20px;
+    font-size: 1.2rem;
+}
+
+.guest-modal__card--wide {
+    max-width: 720px;
+}
+
+.guest-modal__card--wide .admin-panel__title {
+    margin: 0 0 20px;
+    font-size: 1.2rem;
+}
+
+.guest-price-preview {
+    margin: 8px 0 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.bike-form__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.admin-panel--form {
+    margin-bottom: 24px;
+}
+
+.bike-form__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.bike-form__grid .auth-field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: var(--surface);
+}
+
+.admin-btn--ghost {
+    background: var(--surface);
+}
+
+.admin-btn--sm {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+.admin-btn--danger {
+    border-color: #b00020;
+    color: #b00020;
+}
+
+.bike-table__actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.bike-table__row--editing {
+    background: #f0f7ff;
+}
+
+.bike-table__row--editing td {
+    border-color: #4a90d9;
+}
+
+/* --- Openingstijden --- */
+.hours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.hours-card {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.hours-card--open {
+    border-color: #2e7d32;
+    box-shadow: 0 4px 16px rgba(46, 125, 50, 0.12);
+}
+
+.hours-card--closed {
+    opacity: 0.92;
+}
+
+.hours-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+.hours-card__icon {
+    font-size: 2rem;
+    line-height: 1;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--highlight);
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.hours-card__titles {
+    flex: 1;
+    min-width: 0;
+}
+
+.hours-card__category {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.hours-card__name {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.hours-card__status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.hours-card--open .hours-card__status {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.hours-card--closed .hours-card__status {
+    background: var(--highlight);
+    color: var(--text-muted);
+}
+
+.hours-card__desc {
+    margin: 0 0 14px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+.hours-card__days {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border-light);
+}
+
+.hours-card__day {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.hours-card__day:last-child {
+    border-bottom: none;
+}
+
+.hours-card__day-name {
+    color: var(--text-muted);
+}
+
+.hours-card__day-time {
+    font-weight: 500;
+    text-align: right;
+}
+
+.hours-col-drag {
+    width: 36px;
+    cursor: grab;
+}
+
+.hours-drag-handle {
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: -2px;
+    user-select: none;
+}
+
+.hours-col-icon {
+    font-size: 1.25rem;
+    width: 40px;
+}
+
+.hours-row--dragging {
+    opacity: 0.45;
+}
+
+.hours-row--over {
+    outline: 2px dashed var(--border);
+    outline-offset: -2px;
+}
+
+.hours-form__subtitle {
+    margin: 20px 0 6px;
+    font-size: 1rem;
+}
+
+.hours-form__hint {
+    margin: 0 0 12px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.hours-form__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.hours-form__row {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.hours-form__day-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.hours-form__closed-label {
+    font-size: 0.85rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.hours-form__open,
+.hours-form__close {
+    padding: 8px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+    .bike-form__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .guest-bike-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .guest-bike-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .guest-booking-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

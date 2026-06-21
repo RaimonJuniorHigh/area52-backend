@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area52 | Overzicht</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-layout" data-page="portal">
+
+    <div class="admin-shell" id="guest-shell">
+        <main class="admin-content">
+
+            <div class="admin-page-header">
+                <h1>Jouw overzicht</h1>
+            </div>
+
+            <p class="guest-intro" id="guest-welcome"></p>
+
+            <div class="admin-stats guest-stats">
+                <div class="admin-stat-card">
+                    <div class="admin-stat-card__label">Fiets-huur</div>
+                    <div class="admin-stat-card__value" id="stat-bikes">0</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-card__label">Evenementen</div>
+                    <div class="admin-stat-card__value" id="stat-events">0</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-card__label">Totaal uitgegeven</div>
+                    <div class="admin-stat-card__value" id="stat-spent">€0</div>
+                </div>
+            </div>
+
+            <section class="admin-panel">
+                <div class="admin-panel__header">
+                    <h2 class="admin-panel__title">Komende boekingen</h2>
+                    <div class="admin-panel__actions">
+                        <a href="/fietsen" class="admin-btn">Fiets huren</a>
+                        <a href="/evenementen" class="admin-btn">Evenement boeken</a>
+                    </div>
+                </div>
+                <div id="upcoming-list" class="guest-booking-list"></div>
+            </section>
+
+            <section class="admin-panel guest-panel--compact">
+                <div class="admin-panel__header">
+                    <h2 class="admin-panel__title">Recente historie</h2>
+                    <a href="/historie" class="admin-btn">Alles bekijken</a>
+                </div>
+                <div id="recent-history" class="guest-booking-list"></div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="/js/auth-utils.js"></script>
+    <script src="/js/guest-api.js"></script>
+    <script src="/js/guest-layout.js"></script>
+    <script src="/js/guest-dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            GuestLayout.init();
+            GuestDashboard.init();
+        });
+    </script>
+</body>
+</html>

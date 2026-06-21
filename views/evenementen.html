@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area52 | Evenementen</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-layout" data-page="events">
+
+    <div class="admin-shell" id="guest-shell">
+        <main class="admin-content">
+
+            <div class="admin-page-header">
+                <h1>Evenementen & workshops</h1>
+            </div>
+
+            <p class="guest-intro">Schrijf je in voor activiteiten in het park.</p>
+            <p id="event-message" class="auth-message"></p>
+
+            <div id="event-list" class="guest-event-list"></div>
+
+        </main>
+    </div>
+
+    <script src="/js/auth-utils.js"></script>
+    <script src="/js/guest-api.js"></script>
+    <script src="/js/guest-layout.js"></script>
+    <script src="/js/guest-events.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            GuestLayout.init();
+            GuestEvents.init();
+        });
+    </script>
+</body>
+</html>
